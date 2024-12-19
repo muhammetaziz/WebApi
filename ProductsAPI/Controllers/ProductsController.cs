@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,7 @@ namespace ProductsAPI.Controllers
         #region Product Select With ID
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetProduct(int? id)
         {
             if (id == null)
@@ -125,10 +127,7 @@ namespace ProductsAPI.Controllers
             return NoContent();
         }
         #endregion
-
+        
         private static ProductDTO productToDTO(Product p) { return new ProductDTO { ProductName = p.ProductName, Price = p.Price, ProductId = p.ProductId }; }
-
-
-
     }
 }
